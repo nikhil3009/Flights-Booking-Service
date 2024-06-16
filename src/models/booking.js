@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
 	Booking.init(
 		{
 			flightId: { type: DataTypes.INTEGER, allowNull: false },
-			userid: { type: DataTypes.INTEGER, allowNull: false },
+			userId: { type: DataTypes.INTEGER, allowNull: false },
 			status: {
 				type: DataTypes.ENUM,
 				values: [BOOKED, CANCELLED, INITIATED, PENDING],

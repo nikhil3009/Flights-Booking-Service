@@ -1,9 +1,10 @@
 /** @format */
 
 'use strict';
-/** @type {import('sequelize-cli').Migration} */
+
 const { Enums } = require('../utils/common');
 const { BOOKED, CANCELLED, INITIATED, PENDING } = Enums.BOOKING_STATUS;
+
 module.exports = {
 	async up(queryInterface, Sequelize) {
 		await queryInterface.createTable('Bookings', {
@@ -18,6 +19,7 @@ module.exports = {
 				allowNull: false,
 			},
 			userId: {
+				// Ensure it is userId here
 				type: Sequelize.INTEGER,
 				allowNull: false,
 			},
@@ -46,6 +48,7 @@ module.exports = {
 			},
 		});
 	},
+
 	async down(queryInterface, Sequelize) {
 		await queryInterface.dropTable('Bookings');
 	},

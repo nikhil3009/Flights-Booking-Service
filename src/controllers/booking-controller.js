@@ -8,6 +8,16 @@ const inMemDb = {};
 
 async function createBooking(req, res) {
 	try {
+		// Log request body to check if all required fields are present
+		console.log('Request body:', req.body);
+
+		// Validate request body
+		if (!req.body.flightId || !req.body.userId || !req.body.noofSeats) {
+			return res.status(StatusCodes.BAD_REQUEST).json({
+				message: 'Missing required fields: flightId, userId, or noofSeats',
+			});
+		}
+
 		const response = await BookingService.createBooking({
 			flightId: req.body.flightId,
 			userId: req.body.userId,
@@ -16,6 +26,9 @@ async function createBooking(req, res) {
 		SuccessResponse.data = response;
 		return res.status(StatusCodes.OK).json(SuccessResponse);
 	} catch (error) {
+		// Log the error for debugging
+		console.error('Error creating booking:', error);
+
 		ErrorResponse.error = error;
 		return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
 	}
@@ -43,6 +56,7 @@ async function makePayment(req, res) {
 		SuccessResponse.data = response;
 		return res.status(StatusCodes.OK).json(SuccessResponse);
 	} catch (error) {
+		console.log(error);
 		ErrorResponse.error = error;
 		return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
 	}
